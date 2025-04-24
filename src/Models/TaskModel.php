@@ -13,7 +13,7 @@ class TaskModel extends Model
 
     public static function getAll()
     {
-        return self::select('id', 'task', 'description', 'status', 'created_at', 'updated_at')
+        return self::select('id', 'title', 'description', 'status', 'created_at', 'updated_at')
             ->orderBy('created_at', 'desc') // Ordena pela data de criação (mais recente primeiro)
             //->where('status', 1) // Filtra apenas usuários ativos
             ->get();
@@ -21,7 +21,7 @@ class TaskModel extends Model
 
     public static function getById(int $id)
     {
-        return self::select('id', 'task', 'description', 'status', 'created_at', 'updated_at')
+        return self::select('id', 'title', 'description', 'status', 'created_at', 'updated_at')
             ->where('id', $id)
             ->first();
     }
