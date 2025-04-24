@@ -95,6 +95,24 @@ class TaskController
 
     public function delete($id)
     {
-       
+        if (!isset($id)) {
+            throw new Exception(Response::json(['error' => 'ID não fornecido'], 400));
+        }
+
+        if(!is_numeric($id)) {
+            throw new Exception(Response::json(['error' => 'ID inválido'], 400));
+        }
+
+        // Verifica se a task existe
+        if (TaskModel::getById($id) === null) {
+            throw new Exception(Response::json(['error' => 'Task não encontrada'], 404));
+        }
+
+        // Deleta a tarefa
+        TaskModel::deleteTask($id);
+
+        return Response::json([
+            'message' => 'Task deletada com sucesso',
+        ]);
     }
 }

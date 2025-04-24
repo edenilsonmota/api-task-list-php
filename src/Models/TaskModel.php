@@ -62,10 +62,13 @@ class TaskModel extends Model
         return $task;
     }
 
-    // public static function delete($id)
-    // {
-    //     // Aqui você pode implementar a lógica para deletar uma tarefa no banco de dados
-    //     // Exemplo: DELETE FROM tasks WHERE id = $id
-    //     return [];
-    // }
+    public static function deleteTask(int $id)
+    {
+        $deleted = self::destroy($id);
+        if (!$deleted) {
+            throw new \Exception(Response::json(['error' => 'Erro ao deletar task'], 500));
+        }
+
+        return true;
+    }
 }
