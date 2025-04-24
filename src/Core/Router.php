@@ -6,7 +6,7 @@ use App\Core\Response;
 class Router
 {
     private array $routes = [];
-    private array $currentGroup = '';
+    private string $currentGroup = '';
 
     public function get (string $uri, callable $callback)
     {
