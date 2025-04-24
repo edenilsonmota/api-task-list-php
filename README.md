@@ -2,14 +2,11 @@
 
 API simples para gerenciamento de tarefas (CRUD), utilizando **PHP 8.4**, **PostgreSQL** e **Composer**.
 
----
-
 ## ✅ Requisitos
 
 - PHP 8.2
 - Composer
 - PostgreSQL (precisa modulo php ``pdo_pgsql e pgsql``)
----
 
 ## 🚀 Como rodar o projeto localmente
 
@@ -25,7 +22,6 @@ composer dump-autoload
 ```bash
 php -S localhost:8000 -t public
 ```
----
 
 ## 🗃️ Criação da Tabela `tasks`
 
@@ -41,8 +37,6 @@ CREATE TABLE tasks (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-
----
 
 ## 📚 Documentação dos Endpoints
 
@@ -75,8 +69,6 @@ CREATE TABLE tasks (
 }
 ```
 
----
-
 ### 🔹 `GET /tasks/{id}`
 
 **Descrição:** Retorna uma tarefa específica pelo ID.
@@ -97,8 +89,6 @@ CREATE TABLE tasks (
     }
 }
 ```
-
----
 
 ### 🔹 `POST /tasks`
 
@@ -127,8 +117,6 @@ CREATE TABLE tasks (
 }
 ```
 
----
-
 ### 🔹 `PATCH /tasks/{id}`
 
 **Descrição:** Atualiza campos específicos da tarefa.
@@ -156,8 +144,6 @@ CREATE TABLE tasks (
 }
 ```
 
----
-
 ### 🔹 `DELETE /tasks/{id}`
 
 **Descrição:** Remove uma tarefa pelo ID.
@@ -169,12 +155,9 @@ CREATE TABLE tasks (
 }
 ```
 
----
-
 ## 📎 Observações
 
 - Todos os dados devem ser enviados em formato JSON.
 - Use ferramentas como **Postman** ou **Insomnia** para testar os endpoints.
 - Verifique as credenciais do banco de dados e o autoload para garantir o funcionamento correto da API.
 
----
