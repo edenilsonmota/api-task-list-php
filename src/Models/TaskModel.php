@@ -40,12 +40,28 @@ class TaskModel extends Model
 
         return $task;
     }
-    // public static function update($id, $data)
-    // {
-    //     // Aqui você pode implementar a lógica para atualizar uma tarefa no banco de dados
-    //     // Exemplo: UPDATE tasks SET task = $data['task'], description = $data['description'], status = $data['status'] WHERE id = $id
-    //     return [];
-    // }
+    public static function updateTask(int $id, array $data)
+    {
+        $task = self::find($id);
+
+        if (!$task) {
+            throw new \Exception(Response::json(['error' => 'Task não encontrado'], 404));
+        }
+
+        // Atualiza os campos permitidos
+        foreach ($data as $key => $value) {
+            if (in_array($key, $task->getFillable())) {
+                $task->$key = $value;
+            }
+        }
+
+        if (!$task->save()) {
+            throw new \Exception(Response::json(['error' => 'Erro ao atualizar task'], 500));
+        }
+
+        return $task;
+    }
+
     // public static function delete($id)
     // {
     //     // Aqui você pode implementar a lógica para deletar uma tarefa no banco de dados

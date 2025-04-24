@@ -27,7 +27,7 @@ class TaskController
         if (TaskModel::getById($id) === null) {
             throw new Exception(Response::json(['error' => 'Task não encontrada'], 404));
         }
-        
+
         // Retorna a task
         return Response::json([
             'message' => 'Task encontrada',
@@ -60,7 +60,37 @@ class TaskController
 
     public function update($id)
     {
-        
+        $data = Request::json(); // Pega todos os dados do corpo da requisição JSON
+
+        if(!isset($id)){
+            throw new Exception(Response::json(['error' => 'ID não informado'], 400));
+        }
+
+        if (!is_numeric($id)) {
+            throw new Exception(Response::json(['error' => 'ID inválido'], 400));
+        }
+
+        // Verifica se a task existe
+        if (TaskModel::getById($id) === null) {
+            throw new Exception(Response::json(['error' => 'Task não encontrada'], 404));
+        }
+
+        //retornar os campos que podem ser atualizados
+        $fillable = (new TaskModel())->getFillable();
+
+        foreach ($data as $column => $value) {
+            if (!in_array($column, $fillable)) {
+                throw new \Exception(Response::json("Coluna $column não permitida para atualização", 400));
+            }
+        }
+
+        // Atualiza a tarefa
+        return Response::json([
+            'message' => 'Task atualizada com sucesso',
+            'data' => TaskModel::updateTask($id, $data)
+        ]);
+
+
     }
 
     public function delete($id)
