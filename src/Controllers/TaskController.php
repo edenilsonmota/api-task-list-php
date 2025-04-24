@@ -10,14 +10,10 @@ class TaskController
 {
     public function index()
     {
-        // return Response::json([
-        //     'message' => 'Listando todas as tarefas',
-        //     'data' => [
-        //         'id' => 1,
-        //         'title' => 'Tarefa 1',
-        //         'description' => 'Descrição da tarefa 1'
-        //     ]
-        // ]);
+        return Response::json([
+            'message' => 'Lista de tasks',
+            'data' => TaskModel::getAll()
+        ]);
     }
 
     public function show($id)

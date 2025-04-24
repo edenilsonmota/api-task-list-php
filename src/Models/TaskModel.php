@@ -11,12 +11,14 @@ class TaskModel extends Model
     public $timestamps = true; // Habilita os timestamps (created_at e updated_at)
     protected $guarded = ['id', 'created_at']; //não permitir a atribuição dos campos id e created_at
 
-    // public static function getAll()
-    // {
-    //     // Aqui você pode implementar a lógica para buscar todas as tarefas no banco de dados
-    //     // Exemplo: SELECT * FROM tasks
-    //     return [];
-    // }
+    public static function getAll()
+    {
+        return self::select('id', 'task', 'description', 'status', 'created_at', 'updated_at')
+            ->orderBy('created_at', 'desc') // Ordena pela data de criação (mais recente primeiro)
+            //->where('status', 1) // Filtra apenas usuários ativos
+            ->get();
+    }
+    
     // public static function getById($id)
     // {
     //     // Aqui você pode implementar a lógica para buscar uma tarefa pelo ID no banco de dados
