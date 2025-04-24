@@ -1,7 +1,52 @@
 <?php
 
 namespace App\Models;
-class TaskModel
-{
 
+use Illuminate\Database\Eloquent\Model;
+use App\Core\Response;
+class TaskModel extends Model
+{
+    protected $table = 'tasks'; // Nome da tabela
+    protected $fillable = ['task', 'description', 'status']; // Campos
+    public $timestamps = true; // Habilita os timestamps (created_at e updated_at)
+    protected $guarded = ['id', 'created_at']; //não permitir a atribuição dos campos id e created_at
+
+    // public static function getAll()
+    // {
+    //     // Aqui você pode implementar a lógica para buscar todas as tarefas no banco de dados
+    //     // Exemplo: SELECT * FROM tasks
+    //     return [];
+    // }
+    // public static function getById($id)
+    // {
+    //     // Aqui você pode implementar a lógica para buscar uma tarefa pelo ID no banco de dados
+    //     // Exemplo: SELECT * FROM tasks WHERE id = $id
+    //     return [];
+    // }
+    public static function create(array $data)
+    {
+        $task = new self();
+
+        $task->task = $data['task'];
+        $task->description = $data['description'];
+        $task->status = 1; // Define o status como ativo
+
+        if (!$task->save()) {
+            throw new \Exception(Response::json(["error" => "Erro ao criar task"], 500));
+        }
+
+        return $task;
+    }
+    // public static function update($id, $data)
+    // {
+    //     // Aqui você pode implementar a lógica para atualizar uma tarefa no banco de dados
+    //     // Exemplo: UPDATE tasks SET task = $data['task'], description = $data['description'], status = $data['status'] WHERE id = $id
+    //     return [];
+    // }
+    // public static function delete($id)
+    // {
+    //     // Aqui você pode implementar a lógica para deletar uma tarefa no banco de dados
+    //     // Exemplo: DELETE FROM tasks WHERE id = $id
+    //     return [];
+    // }
 }
