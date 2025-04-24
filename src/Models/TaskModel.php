@@ -18,13 +18,14 @@ class TaskModel extends Model
             //->where('status', 1) // Filtra apenas usuários ativos
             ->get();
     }
-    
-    // public static function getById($id)
-    // {
-    //     // Aqui você pode implementar a lógica para buscar uma tarefa pelo ID no banco de dados
-    //     // Exemplo: SELECT * FROM tasks WHERE id = $id
-    //     return [];
-    // }
+
+    public static function getById(int $id)
+    {
+        return self::select('id', 'task', 'description', 'status', 'created_at', 'updated_at')
+            ->where('id', $id)
+            ->first();
+    }
+
     public static function create(array $data)
     {
         $task = new self();

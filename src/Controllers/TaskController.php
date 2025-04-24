@@ -18,7 +18,21 @@ class TaskController
 
     public function show($id)
     {
+        // Verifica se o ID é válido
+        if (!is_numeric($id)) {
+            throw new Exception(Response::json(['error' => 'ID inválido'], 400));
+        }
+
+        // Verifica se a task existe
+        if (TaskModel::getById($id) === null) {
+            throw new Exception(Response::json(['error' => 'Task não encontrada'], 404));
+        }
         
+        // Retorna a task
+        return Response::json([
+            'message' => 'Task encontrada',
+            'data' => TaskModel::getById($id)
+        ]);
     }
 
     public function create()
